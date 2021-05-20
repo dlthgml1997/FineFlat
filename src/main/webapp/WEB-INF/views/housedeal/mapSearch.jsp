@@ -43,7 +43,7 @@ $(document).ready(function(){
 			}
 		})
 	});
-		
+		//test
 	// 동 요청 후 받아오기	
 	$("#gugun").change(function() {
 	let firstcode="";
