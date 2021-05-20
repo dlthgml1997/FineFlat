@@ -31,12 +31,12 @@ $(document).ready(function(){
 	$("#sido").change(function() {
 		if(this.value !== ""){
             var optVal = $(this).find(":selected").val();
-            alert(optVal);
         }
 		$.ajax({
 			url:'/house/gugun/'+optVal,
 			type: 'GET',
 			success: function(data) {
+				$("#gugun").empty();
 				$.each(data, function(index, vo) {
 					$("#gugun").append("<option value='"+vo.gugun_code+"'>"+vo.gugun_name+"</option>");
 				});//each
@@ -49,13 +49,13 @@ $(document).ready(function(){
 	let firstcode="";
 		if(this.value !== ""){
             var optVal = $(this).find(":selected").val();
-            alert(optVal);
             firstcode+=optVal;
         }
 		$.ajax({
 			url:'/house/dong/'+optVal,
 			type: 'GET',
 			success: function(data) {
+				$("#dong").empty();
 				$.each(data, function(index, vo) {
 					$("#dong").append("<option value='"+vo.code+"'>"+vo.dong+"</option>");
 				});//each
