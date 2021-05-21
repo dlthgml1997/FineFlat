@@ -67,14 +67,14 @@ $(document).ready(function(){
 	$("#dong").change(function() {
 		if(this.value !== ""){
             var optVal = $(this).find(":selected").val();
-            var totalcode=$("#gugun option:selected").val()+optVal;
-            alert(totalcode);
+            var totalcode= $("#sido").find(":selected").val() + $("#gugun option:selected").val() + optVal;
         }
 		$.ajax({
 			url:'/house/dongApt/'+totalcode,
 			type: 'GET',
 			success: function(data, status){
 					$("#searchResult").empty();
+					$("tbody").empty();
 					$.each(data, function(index, vo) {
 						let str = "<tr class="+colorArr[index%3]+">"
 						+ "<td>" + vo.no + "</td>"
@@ -107,7 +107,6 @@ $(document).ready(function(){
 						tmpLng = data.results[0].geometry.location.lng;
 						$("#lat_"+index).text(tmpLat);
 						$("#lng_"+index).text(tmpLng);
-						addMarker(tmpLat, tmpLng, vo.aptName);
 					}
 					, "json"
 			);//get
