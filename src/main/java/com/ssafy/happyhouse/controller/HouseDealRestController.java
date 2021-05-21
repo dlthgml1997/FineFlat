@@ -15,11 +15,13 @@ import com.ssafy.happyhouse.model.HouseDto;
 import com.ssafy.happyhouse.model.service.HouseDealService;
 
 import io.swagger.annotations.Api;
-
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  *
- *  아파트 실거래가 관련 기능
+ * 아파트 실거래가 관련 기능
  *
  */
 @RestController
@@ -29,52 +31,57 @@ import io.swagger.annotations.Api;
 public class HouseDealRestController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HouseDealRestController.class);
-	
+
 	@Autowired
 	private HouseDealService houseDealService;
-	
-	
+
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "페이지가 존재하지 않습니다."),
+			@ApiResponse(code = 500, message = "서버에러") })
+
+	@ApiOperation(value = "도시명 얻기", notes = "DB에 있는 도시코드와 도시명을 반환합니다.")
 	@GetMapping("/sido")
 	private ResponseEntity<List<HouseDealDto>> getSido() {
 		logger.info("getSido");
 		try {
 			List<HouseDealDto> list = houseDealService.getSido();
-			if(list.size() > 0) {
+			if (list.size() > 0) {
 				return new ResponseEntity<>(list, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+	@ApiOperation(value = "구군명 얻기", notes = "해당도시의 구군명을 반환합니다.")
 	@GetMapping("/gugun/{sido}")
 	public ResponseEntity<List<HouseDealDto>> getGugunInSido(@PathVariable("sido") String sido) {
 		logger.info("getGugunInSido");
 		logger.info(sido);
-		
+
 		try {
 			List<HouseDealDto> list = houseDealService.getGugunInSido(sido);
-			if(list.size() > 0) {
+			if (list.size() > 0) {
 				return new ResponseEntity<>(list, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}		
+		}
 	}
-	
+
+	@ApiOperation(value = "동명 얻기", notes = "해당 구군의 동명을 반환합니다.")
 	@GetMapping("/dong/{gugun}")
 	public ResponseEntity<List<HouseDealDto>> getDongInGugun(@PathVariable("gugun") String gugun) {
 		logger.info("getDongInGugun");
 		logger.info(gugun);
 		try {
 			List<HouseDealDto> list = houseDealService.getDongInGugun(gugun);
-			if(list.size() > 0) {
+			if (list.size() > 0) {
 				logger.info("getDongInGugun  sss");
 				return new ResponseEntity<>(list, HttpStatus.OK);
 			} else {
@@ -82,34 +89,35 @@ public class HouseDealRestController {
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}		
+		}
 	}
+
+	@ApiOperation(value = "아파트 리스트 얻기", notes = "해당 동의 아파트 리스트를 반환합니다.")
 	@GetMapping("/dongApt/{totalcode}")
 	public ResponseEntity<List<HouseDto>> searchByDong(@PathVariable("totalcode") String totalcode) {
 		logger.info("searchByDong");
 		logger.info(totalcode);
 		try {
 			List<HouseDto> list = houseDealService.searchByDong(totalcode);
-
-				logger.info("searchByDong sss");
-				return new ResponseEntity<>(list, HttpStatus.OK);
-
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}		
+		}
 	}
-	@GetMapping("/searchDong/{searchWord}")
-	public ResponseEntity<List<HouseDto>> searchByDongName(@PathVariable("searchWord") String searchWord) {
-		logger.info("searchByDongName");
+
+	@ApiOperation(value = "아파트명으로 검색", notes = "동명과 아파트명으로 아파트를 검색합니다.")
+	@GetMapping("/searchName/{dongName}/{searchWord}")
+	public ResponseEntity<List<HouseDto>> searchByName(@PathVariable("searchWord") String searchWord,
+			@PathVariable("dongName") String dongName) {
+		logger.info("searchByName: " + searchWord + ", " + dongName);
 		logger.info(searchWord);
 		try {
-			List<HouseDto> list = houseDealService.searchByDongName(searchWord);
-			
-			logger.info("searchByDongName sss");
+			List<HouseDto> list = houseDealService.searchByName(searchWord, dongName);
+
 			return new ResponseEntity<>(list, HttpStatus.OK);
-			
+
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}		
+		}
 	}
 }

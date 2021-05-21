@@ -34,10 +34,11 @@
 		ORDER BY AptName
 	</select>
 	
-	<select id="searchByDongName" resultType="houseDto">
-		SELECT no,dong,AptName, buildYear, jibun 
+	<select id="searchByName" resultType="houseDto">
+		SELECT no, dong, AptName, buildYear, jibun 
 		FROM houseinfo 
-		WHERE dong like concat('%', #{searchWord}, '%')
+		WHERE AptName like concat('%', #{searchWord}, '%')
+		AND dong like #{dongName}
 		ORDER BY AptName
 	</select>
 </mapper>

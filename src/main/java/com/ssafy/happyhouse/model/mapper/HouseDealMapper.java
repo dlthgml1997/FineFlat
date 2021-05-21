@@ -12,6 +12,5 @@ public interface HouseDealMapper {
 	List<HouseDealDto> getDongInGugun(String gugun);
 	List<HouseDealDto> searchByAptName(String AptName) throws SQLException;
 	List<HouseDto> searchByDong(String totalcode) throws SQLException;
-	List<HouseDto> searchByDongName(String searchWord) throws SQLException;
-	// 지도 검색 기능 구현하기
+	List<HouseDto> searchByName(String searchWord, String dongName) throws SQLException;
 }

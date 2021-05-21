@@ -16,37 +16,32 @@ import com.ssafy.util.PageNavigation;
 
 @Service
 public class HouseDealServiceImpl implements HouseDealService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HouseDealServiceImpl.class);
-	
+
 	@Autowired
 	private SqlSession sqlSession;
-
-	
-	@Override
-	public List<HouseDealDto> searchByAptName(String AptName) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<HouseDto> searchByDong(String totalcode) throws SQLException {
 		return sqlSession.getMapper(HouseDealMapper.class).searchByDong(totalcode);
 	}
-	
+
 	@Override
-	public List<HouseDto> searchByDongName(String searchWord) throws SQLException {
-		return sqlSession.getMapper(HouseDealMapper.class).searchByDongName(searchWord);
+	public List<HouseDto> searchByName(String searchWord, String dongName) throws SQLException {
+		return sqlSession.getMapper(HouseDealMapper.class).searchByName(searchWord, dongName);
 	}
 
 	@Override
 	public List<HouseDealDto> getSido() {
 		return sqlSession.getMapper(HouseDealMapper.class).getSido();
 	}
+
 	@Override
 	public List<HouseDealDto> getGugunInSido(String sido) {
 		return sqlSession.getMapper(HouseDealMapper.class).getGugunInSido(sido);
 	}
+
 	@Override
 	public List<HouseDealDto> getDongInGugun(String gugun) {
 		return sqlSession.getMapper(HouseDealMapper.class).getDongInGugun(gugun);
