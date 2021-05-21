@@ -6,36 +6,36 @@
 	namespace="com.ssafy.happyhouse.model.mapper.HouseDealMapper">
 
 	<select id="getSido" resultType="houseDealDto">
-		SELECT left(sido_code,2)
-		sido_code, sido_name
-		FROM sidocode
+		SELECT DISTINCT left(code,2) sido_code, city sido_name
+		FROM baseaddress
 		ORDER BY sido_code
 	</select>
 	
 	<select id="getGugunInSido" resultType="houseDealDto">
-		SELECT left(gugun_code,5) gugun_code, gugun_name FROM guguncode 
-		where left(gugun_code,2) = #{sido_code}
+		SELECT DISTINCT SUBSTRING(code,3,4) gugun_code, gugun gugun_name 
+		FROM baseaddress 
+		WHERE LEFT(code,2) = #{sido_code}
 		ORDER BY gugun_code
 	</select>
 
 	<select id="getDongInGugun" resultType="houseDealDto">
-		select right(dongcode,5) AS code, dong 
-		from dongcode 
-		where left(dongcode, 5) = #{gugun_code}
-		order by dong
+		SELECT DISTINCT RIGHT(code,4) code, dong 
+		FROM baseaddress 
+		WHERE SUBSTRING(code, 3, 4) = #{gugun_code}
+		ORDER BY dong
 	</select>
 	
 	<select id="searchByDong" resultType="houseDto">
 		SELECT no,dong,AptName,code,jibun 
-		FROM houseinfo 
-		WHERE dong like (select dong 
-						from dongcode 
-						where dongcode = #{totalcode})
+		FROM houseinfo
+		WHERE dong LIKE (SELECT dong 
+						FROM baseaddress 
+						WHERE code = #{totalcode})
 		ORDER BY AptName
 	</select>
 	
 	<select id="searchByDongName" resultType="houseDto">
-		SELECT no,dong,AptName, buildYear,jibun 
+		SELECT no,dong,AptName, buildYear, jibun 
 		FROM houseinfo 
 		WHERE dong like concat('%', #{searchWord}, '%')
 		ORDER BY AptName
