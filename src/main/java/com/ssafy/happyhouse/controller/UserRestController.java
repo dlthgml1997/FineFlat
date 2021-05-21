@@ -80,7 +80,7 @@ public class UserRestController {
 	@ApiOperation(value = "회원가입", notes = "회원 정보를 받아서 DB에 저장.")
 	@PostMapping(value = "/join")
 	public ResponseEntity<List<MemberDto>> userRegister(
-			@ApiParam(value = "회원 한명의 정보", required = true) MemberDto memberDto) {
+			@RequestBody @ApiParam(value = "회원 한명의 정보", required = true) MemberDto memberDto) {
 		logger.info(memberDto.toString());
 
 		int cnt = userService.userRegister(memberDto);
