@@ -42,7 +42,7 @@ public class UserController {
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(Model model, HttpSession session) {
 		MemberDto memberDto = (MemberDto)session.getAttribute("userinfo");
-		memberDto = userService.userInfo(memberDto.getUserid());
+		memberDto = userService.userInfo(memberDto.getId());
 		logger.info("mypage()..: "+ memberDto.toString()); 
 		model.addAttribute("memberDto", memberDto);
 		return "user/mypage";

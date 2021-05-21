@@ -59,7 +59,7 @@ public class UserRestController {
 				logger.info(memberDto.toString());
 				session.setAttribute("userinfo", memberDto);
 
-				Cookie cookie = new Cookie("ssafy_id", memberDto.getUserid());
+				Cookie cookie = new Cookie("ssafy_id", memberDto.getId());
 				cookie.setPath("/");
 				if ("saveok".equals(map.get("idsave"))) {
 					cookie.setMaxAge(60 * 60 * 24 * 365 * 40);// 40년간 저장.
@@ -132,7 +132,7 @@ public class UserRestController {
 			@RequestBody @ApiParam(value = "수정 할 회원정보", required = true) MemberDto memberDto, HttpSession session) {
 		userService.userModify(memberDto);
 		logger.info("userModify(): " + memberDto.toString());
-		MemberDto member = userService.userInfo(memberDto.getUserid());
+		MemberDto member = userService.userInfo(memberDto.getId());
 
 		session.setAttribute("userinfo", member);
 		return new ResponseEntity<>(member, HttpStatus.OK);
