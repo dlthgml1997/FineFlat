@@ -1,18 +1,21 @@
 <template>
     <div id="app">
         <div id="nav">
-            <emp-header></emp-header>
+            <top-header></top-header>
+            <navi-bar></navi-bar>
         </div>
     </div>
 </template>
 <script>
-import EmpHeader from '@/components/header.vue';
+import NaviBar from '@/components/navibar.vue';
+import TopHeader from '@/components/topheader.vue';
 
 export default {
-    name: 'h',
+    name: 'mainpage',
     components: {
         // EmpList,
-        EmpHeader,
+        TopHeader,
+        NaviBar,
     },
 };
 </script>
