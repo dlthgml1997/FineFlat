@@ -51,7 +51,7 @@ public class UserRestController {
 			@ApiResponse(code = 404, message = "페이지가 존재하지 않습니다."), @ApiResponse(code = 500, message = "서버에러") })
 
 	@PostMapping(value = "/login")
-	public ResponseEntity<MemberDto> login(@RequestParam Map<String, String> map, Model model, HttpSession session,
+	public ResponseEntity<MemberDto> login(@RequestBody Map<String, String> map, Model model, HttpSession session,
 			HttpServletResponse response) {
 		try {
 			MemberDto memberDto = userService.login(map);
@@ -68,7 +68,7 @@ public class UserRestController {
 				}
 				response.addCookie(cookie);
 
-				return new ResponseEntity(HttpStatus.OK);
+				return new ResponseEntity(memberDto, HttpStatus.OK);
 			} else
 				return new ResponseEntity(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
