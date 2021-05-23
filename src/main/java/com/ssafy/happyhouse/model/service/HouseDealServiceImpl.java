@@ -28,8 +28,8 @@ public class HouseDealServiceImpl implements HouseDealService {
 	}
 
 	@Override
-	public List<HouseDto> searchByName(String searchWord, String dongName) throws SQLException {
-		return sqlSession.getMapper(HouseDealMapper.class).searchByName(searchWord, dongName);
+	public List<HouseDto> searchByName(String searchName) throws SQLException {
+		return sqlSession.getMapper(HouseDealMapper.class).searchByName(searchName);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class HouseDealServiceImpl implements HouseDealService {
 	}
 
 	@Override
-	public List<HouseDealDto> getDongInGugun(String gugun) {
-		return sqlSession.getMapper(HouseDealMapper.class).getDongInGugun(gugun);
+	public List<HouseDealDto> getDongInGugun(String sigugun) {
+		return sqlSession.getMapper(HouseDealMapper.class).getDongInGugun(sigugun);
 	}
 }

@@ -75,12 +75,12 @@ public class HouseDealRestController {
 	}
 
 	@ApiOperation(value = "동명 얻기", notes = "해당 구군의 동명을 반환합니다.")
-	@GetMapping("/dong/{gugun}")
-	public ResponseEntity<List<HouseDealDto>> getDongInGugun(@PathVariable("gugun") String gugun) {
+	@GetMapping("/dong/{sigugun}")
+	public ResponseEntity<List<HouseDealDto>> getDongInGugun(@PathVariable("sigugun") String sigugun) {
 		logger.info("getDongInGugun");
-		logger.info(gugun);
+		logger.info(sigugun);
 		try {
-			List<HouseDealDto> list = houseDealService.getDongInGugun(gugun);
+			List<HouseDealDto> list = houseDealService.getDongInGugun(sigugun);
 			if (list.size() > 0) {
 				logger.info("getDongInGugun  sss");
 				return new ResponseEntity<>(list, HttpStatus.OK);
@@ -105,14 +105,13 @@ public class HouseDealRestController {
 		}
 	}
 
-	@ApiOperation(value = "아파트명으로 검색", notes = "동명과 아파트명으로 아파트를 검색합니다.")
-	@GetMapping("/searchName/{dongName}/{searchWord}")
-	public ResponseEntity<List<HouseDto>> searchByName(@PathVariable("searchWord") String searchWord,
-			@PathVariable("dongName") String dongName) {
-		logger.info("searchByName: " + searchWord + ", " + dongName);
-		logger.info(searchWord);
+	@ApiOperation(value = "아파트명으로 검색", notes = "아파트명으로 아파트를 검색합니다.")
+	@GetMapping("/searchName/{searchName}")
+	public ResponseEntity<List<HouseDto>> searchByName(@PathVariable("searchName") String searchName) {
+		logger.info("searchByName: " + searchName  );
+		logger.info(searchName);
 		try {
-			List<HouseDto> list = houseDealService.searchByName(searchWord, dongName);
+			List<HouseDto> list = houseDealService.searchByName(searchName);
 
 			return new ResponseEntity<>(list, HttpStatus.OK);
 

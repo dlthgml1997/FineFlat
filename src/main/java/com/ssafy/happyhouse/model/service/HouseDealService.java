@@ -13,6 +13,6 @@ public interface HouseDealService {
 	List<HouseDealDto> getGugunInSido(String sido);
 	List<HouseDealDto> getDongInGugun(String gugun);
 	List<HouseDto> searchByDong(String totalcode) throws SQLException;
-	List<HouseDto> searchByName(String searchWord, String dongName) throws SQLException;
+	List<HouseDto> searchByName(String searchName) throws SQLException;
 	// 지도 검색 기능 구현하기
 }
