@@ -11,39 +11,39 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         //=====user
-        id: '',
+        Sid: '',
         errorState: '',
         isAuth: false,
-        member: {
-            id: '',
-            pw: '',
-            email: '',
-            tel: '',
-            name: '',
-            address: '',
-        },
+        member: { id: '', pw: '' },
         //=====
         emps: [],
         emp: {},
     },
-    // 요청값에 따라 넘겨주기
     getters: {
         //=====user
-        getMember: (state) => state.member,
-        getId: (state) => state.id,
+        // getId: (state) => {
+        //     console.log('getme');
+        //     console.log(state.Sid);
+        //     return state.Sid;
+        // },
 
-        emps(state) {
-            return state.emps;
-        },
-        emp(state) {
-            return state.emp;
-        },
+        // // getId: (state) => state.id,
+
+        // emps(state) {
+        //     console.log('getme');
+        //     return state.emps;
+        // },
+        // emp(state) {
+        //     return state.emp;
+        // },
     },
     mutations: {
         //============user===========
         //login
         loginCh(state, paylodad) {
-            state.member = paylodad;
+            console.log('paylodad');
+            console.log(paylodad);
+            state.Sid = paylodad.id;
         },
         //33번의 데이터가
         setEmps(state, payload) {
@@ -57,9 +57,14 @@ export default new Vuex.Store({
     actions: {
         //============user===========
         //login
-        getlogin(context, member) {
-            axios.post('/user/login' + member).then(({ data }) => {
+        async getlogin(context, { id, pw }) {
+            console.log('겟로');
+            console.log(id, pw);
+            axios.post('/user/login', { id, pw }).then(({ data }) => {
+                console.log('얻데');
+                console.log(data);
                 context.commit('loginCh', data);
+                return data.id;
             });
         },
         //===========================

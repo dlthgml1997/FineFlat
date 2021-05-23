@@ -10,13 +10,13 @@
                     <th><label for="id">아이디</label></th>
                     <td>
                         <input
-                            readonly,
                             type="text"
                             class="form-control"
                             id="id"
                             ref="id"
                             placeholder="아이디"
                             v-model="id"
+                            readonly
                         />
                     </td>
                 </tr>
@@ -37,13 +37,13 @@
                     <th><label for="name">이름</label></th>
                     <td>
                         <input
-                            readonly,
                             type="text"
                             class="form-control"
                             id="name"
                             ref="name"
                             placeholder="이름"
                             v-model="name"
+                            readonly
                         />
                     </td>
                 </tr>
@@ -104,13 +104,23 @@ import axios from '@/util/http-common';
 export default {
     data() {
         return {
+            mem: JSON.parse(sessionStorage.getItem('user')),
             id: '',
             pw: '',
             name: '',
-            reginum: '',
+            tel: '',
             email: '',
             address: '',
         };
+    },
+    created() {
+        //alert(this.mem.id);
+        this.id = this.mem.id;
+        this.pw = this.mem.pw;
+        this.name = this.mem.name;
+        this.tel = this.mem.tel;
+        this.email = this.mem.email;
+        this.address = this.mem.address;
     },
 
     methods: {
@@ -133,10 +143,10 @@ export default {
                 (err = false),
                 this.$refs.name.focus());
             err &&
-                !this.calnum &&
+                !this.tel &&
                 ((msg = '전화번호를 입력해주세요'),
                 (err = false),
-                this.$refs.calnum.focus());
+                this.$refs.tel.focus());
             err &&
                 !this.email &&
                 ((msg = '이메일을 입력해주세요'),
@@ -154,22 +164,24 @@ export default {
 
         createHandler() {
             axios
-                .post('/user/modify', {
+                .put('/user/modify', {
                     id: this.id,
                     pw: this.pw,
                     name: this.name,
-                    calnum: this.calnum,
+                    tel: this.tel,
                     email: this.email,
                     address: this.address,
                 })
                 .then(({ data }) => {
                     alert('수정되었습니다.');
+                    sessionStorage.setItem('user', JSON.stringify(data));
                     this.moveHome();
                 });
         },
         moveHome() {
-            alert("홈으로 돌아갑니다.")
-            this.$router.push('/');
+            alert('홈으로 돌아갑니다.');
+            // this.$router.push('/');
+            this.$router.go(-1);
         },
     },
 };

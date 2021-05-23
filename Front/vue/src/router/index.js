@@ -9,6 +9,9 @@ import NewsPage from '@/components/news.vue';
 
 import JoinPage from '@/components/user/join.vue';
 import LoginPage from '@/components/user/login.vue';
+import MyPage from '@/components/user/mypage.vue';
+
+import BoardDetial from '@/components/boardDetail.vue';
 //버전 2에서만 가능한 @별칭경로 // 상위경로 웹펙엣
 Vue.use(VueRouter);
 
@@ -61,5 +64,17 @@ export default new VueRouter({
             name: 'login',
             component: LoginPage,
         },
+        {
+            path: '/user/mypage',
+            name: 'mypg',
+            component: MyPage,
+        },
+
+        //===========baard
+        // {
+        //     path: '/boardDetail' + { no },
+        //     name: 'boardDE',
+        //     component: BoardDetail,
+        // },
     ],
 });

@@ -1,11 +1,12 @@
 module.exports = {
     outputDir: '../../src/main/resources',
     devServer: {
+        // port: 81,
+        port: 85,
         overlay: false,
-        port: 80,
         proxy: {
             '/api': {
-                target: 'http://localhost:80',
+                target: 'http://localhost:80', //연결할 백 포트
             },
         },
     },
