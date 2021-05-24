@@ -7,7 +7,7 @@
 
 	
 	<select id="readArticles" resultType="com.ssafy.happyhouse.model.ArticleDto">
-		select no, writer, sort, title, regtime
+		select *
 		from board
 	</select>
 	
