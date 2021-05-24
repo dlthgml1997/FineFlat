@@ -153,16 +153,15 @@ export default {
 
         createHandler() {
             console.log('cre of join');
+            console.log(this.id);
             axios
                 .post('/user/join', {
-                    member: {
-                        id: this.id,
-                        pw: this.pw,
-                        name: this.name,
-                        tel: this.tel,
-                        email: this.email,
-                        address: this.address,
-                    },
+                    id: this.id,
+                    pw: this.pw,
+                    name: this.name,
+                    tel: this.tel,
+                    email: this.email,
+                    address: this.address,
                 })
                 .then(({ data }) => {
                     console.log('가입성공');
