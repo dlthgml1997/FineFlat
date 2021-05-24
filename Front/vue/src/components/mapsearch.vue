@@ -36,35 +36,11 @@
                         </option>
                     </select>
                     <br />
-                    <!-- 선택된 코드는 {{ sido.sido_name }} {{ gugun.gugun_name -->
-                    <!-- }}<br /> -->
                     {{ sidocode }}{{ guguncode }}{{ dongcode }}
                     <br />
 
                     {{ totalcode }}
                     <paging-list :list-array="aptlist" />
-                    <!-- <table class="table mt-2">
-                        <thead>
-                            <tr>
-                                <th>citycode</th>
-                                <th>dong</th>
-                                <th>AptName</th>
-                                <th>post number</th>
-                                <th>위도</th>
-                                <th>경도</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="apt in aptlist" :key="apt">
-                                <th>{{ apt.code }}</th>
-                                <th>{{ apt.dong }}</th>
-                                <th>{{ apt.aptName }}</th>
-                                <th>{{ apt.jibun }}</th>
-                                <th>{{ apt.lat }}</th>
-                                <th>{{ apt.lng }}</th>
-                            </tr>
-                        </tbody>
-                    </table> -->
                 </div>
             </div>
         </section>

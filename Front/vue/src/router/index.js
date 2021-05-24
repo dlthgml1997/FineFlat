@@ -11,6 +11,7 @@ import JoinPage from '@/components/user/join.vue';
 import LoginPage from '@/components/user/login.vue';
 import MyPage from '@/components/user/mypage.vue';
 
+import AptDetailPage from '@/components/aptdetail.vue';
 import BoardDetial from '@/components/boardDetail.vue';
 //버전 2에서만 가능한 @별칭경로 // 상위경로 웹펙엣
 Vue.use(VueRouter);
@@ -70,9 +71,16 @@ export default new VueRouter({
             component: MyPage,
         },
 
+        {
+            path: '/apt/aptdetail',
+            name: 'Aptdetail',
+            component: AptDetailPage,
+            props: true,
+        },
+
         //===========baard
         // {
-        //     path: '/boardDetail' + { no },
+        //     path: '/boardDetail',
         //     name: 'boardDE',
         //     component: BoardDetail,
         // },

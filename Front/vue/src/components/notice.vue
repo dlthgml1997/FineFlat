@@ -1,7 +1,7 @@
 <template>
     <div>
         공지사항페이지입니다.
-        <!-- <br>
+        <br>
     <table>
       <tr>
         <th>번호</th>
@@ -31,7 +31,7 @@
       <th>{{article.content}}</th> 
       <th>{{article.reg}}</th> 
       </tr>
-    </table> -->
+    </table>
     </div>
 </template>
 
