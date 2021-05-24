@@ -7,7 +7,7 @@
                     <col width="70%" />
                 </colgroup>
                 <tr>
-                    <th><label for="id">아이디</label></th>
+                    <th><label for="id">ID</label></th>
                     <td>
                         <input
                             type="text"
@@ -21,10 +21,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="pw">암호</label></th>
+                    <th><label for="pw">PASSWORD</label></th>
                     <td>
                         <input
-                            type="text"
+                            type="password"
                             class="form-control"
                             id="pw"
                             ref="pw"
@@ -34,7 +34,20 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="name">이름</label></th>
+                    <th><label for="pw">PASSWORD AGAIN</label></th>
+                    <td>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="pwre"
+                            ref="pwre"
+                            placeholder="암호를 다시 입력해주세요"
+                            v-model="pwre"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="name">NAME</label></th>
                     <td>
                         <input
                             type="text"
@@ -48,7 +61,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="email">이메일</label></th>
+                    <th><label for="email">E-MAIL</label></th>
                     <td>
                         <input
                             type="text"
@@ -61,7 +74,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="tel">전화번호</label></th>
+                    <th><label for="tel">TEL</label></th>
                     <td>
                         <input
                             type="text"
@@ -74,7 +87,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="address">주소</label></th>
+                    <th><label for="address">ADDRESS</label></th>
                     <td>
                         <input
                             type="text"
@@ -90,6 +103,9 @@
             <div class="text-center">
                 <button class="btn btn-primary" @click="checkHandler">
                     수정하기
+                </button>
+                <button class="btn btn-primary" @click="deleteHandler">
+                    탈퇴하기
                 </button>
                 <button class="btn btn-primary" @click="moveHome">
                     뒤로가기
@@ -107,6 +123,7 @@ export default {
             mem: JSON.parse(sessionStorage.getItem('user')),
             id: '',
             pw: '',
+            pwre: '',
             name: '',
             tel: '',
             email: '',
@@ -116,7 +133,6 @@ export default {
     created() {
         //alert(this.mem.id);
         this.id = this.mem.id;
-        this.pw = this.mem.pw;
         this.name = this.mem.name;
         this.tel = this.mem.tel;
         this.email = this.mem.email;
@@ -135,6 +151,11 @@ export default {
             err &&
                 !this.pw &&
                 ((msg = '비밀번호를 입력해주세요'),
+                (err = false),
+                this.$refs.pw.focus());
+            err &&
+                !(this.pw == this.pwre) &&
+                ((msg = '비밀번호가 일치하지 않습니다.'),
                 (err = false),
                 this.$refs.pw.focus());
             err &&
@@ -177,6 +198,29 @@ export default {
                     sessionStorage.setItem('user', JSON.stringify(data));
                     this.moveHome();
                 });
+        },
+        deleteHandler() {
+            let err = true;
+            let msg = '';
+            !this.pw &&
+                ((msg = '비밀번호를 입력해주세요'),
+                (err = false),
+                this.$refs.pw.focus());
+            err &&
+                !(this.pw == this.pwre) &&
+                ((msg = '비밀번호가 일치하지 않습니다.'),
+                (err = false),
+                this.$refs.pw.focus());
+            if (!err) alert(msg);
+            else this.deleteAct();
+        },
+        deleteAct() {
+            //모달창을 추가해보자
+            axios.delete(`/user/delete/${this.id}`).then(({ data }) => {
+                alert('정상 탈퇴 되었습니다.');
+                sessionStorage.removeItem('user');
+                this.moveHome();
+            });
         },
         moveHome() {
             alert('홈으로 돌아갑니다.');

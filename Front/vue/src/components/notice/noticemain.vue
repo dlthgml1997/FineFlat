@@ -2,7 +2,8 @@
     <div>
         공지사항페이지입니다.
         <br />
-        <paging-article :list-array="contents" />
+        <button @click="writing">글쓰기</button>
+        <article-list :list-array="contents" />
         <!-- <table>
             <tr>
                 <th>번호</th>
@@ -38,18 +39,18 @@
 
 <script>
 import axios from '@/util/http-common';
-import PagingArticle from '@/components/pageingarticle';
+import ArticleList from '@/components/notice/articlelist';
 
 export default {
     components: {
-        PagingArticle,
+        ArticleList,
     },
     data() {
         return {
             contents: [],
         };
     },
-    mounted() {
+    created() {
         axios
             .get('/board/readlist')
             .then(({ data }) => {
@@ -58,6 +59,12 @@ export default {
             .catch(() => {
                 alert('에러가 발생했습니다.');
             });
+    },
+    methods: {
+        writing() {
+            console.log(this);
+            this.$router.push('/notice/articlewrite');
+        },
     },
 };
 </script>

@@ -25,7 +25,7 @@
                         </tr>
                     </table> -->
 
-                    <paging-list :list-array="aptlist" />
+                    <key-searched :list-array="aptlist" />
                     <!-- <table>
                         <thead>
                             <tr>
@@ -49,10 +49,10 @@
 <script>
 import axios from '@/util/http-common';
 
-import PagingList from '@/components/pageingName';
+import KeySearched from '@/components/aptsearch/keysearched';
 export default {
     components: {
-        PagingList,
+        KeySearched,
     },
     data() {
         return {

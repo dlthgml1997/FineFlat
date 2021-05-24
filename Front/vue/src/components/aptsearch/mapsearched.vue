@@ -3,36 +3,31 @@
         <table>
             <thead>
                 <tr>
-                    <th>동</th>
-                    <th>아파트이름</th>
-                    <th>건축 년도</th>
-                    <th>지번</th>
-                    <th>거래금액</th>
-                    <th>거래연도</th>
+                    <th>AptName</th>
+                    <th>Price</th>
+                    <th>Deal Year</th>
+                    <th>Build</th>
+                    <th>Floor</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="apt in paginatedData" :key="apt">
-                    <th>{{ apt.dong }}</th>
-                    <th>{{ apt.aptName }}</th>
-                    <th>{{ apt.buildYear }}</th>
-                    <th>{{ apt.jibun }}</th>
-                    <th>{{ apt.dealAmount }}</th>
-                    <th>{{ apt.dealYear }}</th>
+                    <td>
+                        <router-link
+                            :to="{
+                                name: 'AptDetail',
+                                params: { AP: apt },
+                            }"
+                            >{{ apt.aptName }}
+                        </router-link>
+                        <!-- 여기엔 라우터 뷰 넣으면? -->
+                    </td>
+                    <td>{{ apt.dealAmount }}</td>
+                    <td>{{ apt.dealYear }}</td>
+                    <td>{{ apt.buildYear }}</td>
+                    <td>{{ apt.floor }}</td>
                 </tr>
             </tbody>
-            <!-- <tr>
-                <th>NO</th>
-                <th>TEL</th>
-                <th>ADDRESS</th>
-                <th>NAME</th>
-            </tr>
-            <tr v-for="p in paginatedData" :key="p.no">
-                <td>{{ p.no }}</td>
-                <td>{{ p.tel }}</td>
-                <td>{{ p.address }}</td>
-                <td>{{ p.name }}</td>
-            </tr> -->
         </table>
         <div class="btn-cover">
             <button
@@ -57,11 +52,18 @@
 </template>
 
 <script>
+import AptDetail from '@/components/aptsearch/aptdetail';
+//이거 필요해?
 export default {
-    name: 'paging-list',
+    name: 'apt-detail',
+    components: {
+        AptDetail,
+    },
+    //이거 필요해?
     data() {
         return {
             pageNum: 0,
+            newlist: [],
         };
     },
     props: {
@@ -82,6 +84,7 @@ export default {
         prevPage() {
             this.pageNum -= 1;
         },
+        shomedetail() {},
     },
     computed: {
         pageCount() {
@@ -89,11 +92,6 @@ export default {
                 listSize = this.pageSize,
                 page = Math.floor(listLeng / listSize);
             if (listLeng % listSize > 0) page += 1;
-
-            /*
-        아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
-        이런식으로 if 문 없이 고칠 수도 있다!
-      */
             return page;
         },
         paginatedData() {

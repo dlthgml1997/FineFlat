@@ -1,19 +1,20 @@
 <template>
     <div id="app">
         <div id="nav">
+            <!-- 탑헤더 컴포넌트를 임폴트 해와서 띄워준다 -->
             <top-header></top-header>
+            <!-- 네비바 컴포넌트를 임폴트 해와서 띄워준다 -->
             <navi-bar></navi-bar>
         </div>
     </div>
 </template>
 <script>
-import NaviBar from '@/components/navibar.vue';
-import TopHeader from '@/components/topheader.vue';
+import TopHeader from '@/components/navi/topheader.vue';
+import NaviBar from '@/components/navi/navibar.vue';
 
 export default {
     name: 'mainpage',
     components: {
-        // EmpList,
         TopHeader,
         NaviBar,
     },

@@ -7,79 +7,92 @@
                     <col width="70%" />
                 </colgroup>
                 <tr>
-                    <th><label for="id">아이디</label></th>
+                    <th><label for="id">ID</label></th>
                     <td>
                         <input
                             type="text"
                             class="form-control"
                             id="id"
                             ref="id"
-                            placeholder="아이디"
+                            placeholder="아이디를 입력해주세요"
                             v-model="id"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="pw">암호</label></th>
+                    <th><label for="pw">PASSWORD</label></th>
                     <td>
                         <input
-                            type="text"
+                            type="password"
                             class="form-control"
                             id="pw"
                             ref="pw"
-                            placeholder="암호"
+                            placeholder="암호를 입력해주세요"
                             v-model="pw"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="name">이름</label></th>
+                    <th><label for="pw">PASSWORD AGAIN</label></th>
+                    <td>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="pwre"
+                            ref="pwre"
+                            placeholder="암호를 다시 입력해주세요"
+                            v-model="pwre"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="name">NAME</label></th>
                     <td>
                         <input
                             type="text"
                             class="form-control"
                             id="name"
                             ref="name"
-                            placeholder="이름"
+                            placeholder="이름을 입력해주세요"
                             v-model="name"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="email">이메일</label></th>
+                    <th><label for="email">E-MAIL</label></th>
                     <td>
                         <input
                             type="text"
                             class="form-control"
                             id="email"
                             ref="email"
-                            placeholder="이메일"
+                            placeholder="이메일을 입력해주세요"
                             v-model="email"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="tel">전화번호</label></th>
+                    <th><label for="tel">TEL</label></th>
                     <td>
                         <input
                             type="text"
                             class="form-control"
                             id="tel"
                             ref="tel"
-                            placeholder="전화번호"
+                            placeholder="전화번호를 입력해주세요"
                             v-model="tel"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="address">주소</label></th>
+                    <th><label for="address">ADDRESS</label></th>
                     <td>
                         <input
                             type="text"
                             class="form-control"
                             id="address"
                             ref="address"
-                            placeholder="주소"
+                            placeholder="주소를 입력해주세요"
                             v-model="address"
                         />
                     </td>
@@ -104,6 +117,7 @@ export default {
         return {
             id: '',
             pw: '',
+            pwre: '',
             name: '',
             tel: '',
             email: '',
@@ -124,6 +138,11 @@ export default {
             err &&
                 !this.pw &&
                 ((msg = '비밀번호를 입력해주세요'),
+                (err = false),
+                this.$refs.pw.focus());
+            err &&
+                !(this.pw == this.pwre) &&
+                ((msg = '비밀번호가 일치하지 않습니다.'),
                 (err = false),
                 this.$refs.pw.focus());
             err &&
@@ -164,13 +183,12 @@ export default {
                     address: this.address,
                 })
                 .then(({ data }) => {
-                    console.log('가입성공');
                     alert('가입되었습니다.');
                     this.moveHome();
+                })
+                .catch(() => {
+                    alert('가입실패되었습니다. 다시 시도해주세요.');
                 });
-            // .catch(() => {
-            //     console.log('가입실패');
-            // });
         },
         moveHome() {
             // this.$router.push('/');

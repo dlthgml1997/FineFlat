@@ -3,31 +3,36 @@
         <table>
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>Sort</th>
-                    <th>Writer</th>
-                    <th>Title</th>
-                    <th>Date</th>
+                    <th>동</th>
+                    <th>아파트이름</th>
+                    <th>건축 년도</th>
+                    <th>지번</th>
+                    <th>거래금액</th>
+                    <th>거래연도</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="arti in paginatedData" :key="arti">
-                    <td>{{ arti.no }}</td>
-                    <td>{{ arti.sort }}</td>
-                    <td>{{ arti.writer }}</td>
-                    <td>
-                        <router-link
-                            :to="{
-                                name: 'ArticleDetail',
-                                params: { AT: arti },
-                            }"
-                            >{{ arti.title }}
-                        </router-link>
-                    </td>
-                    <td>{{ arti.regtime }}</td>
+                <tr v-for="apt in paginatedData" :key="apt">
+                    <th>{{ apt.dong }}</th>
+                    <th>{{ apt.aptName }}</th>
+                    <th>{{ apt.buildYear }}</th>
+                    <th>{{ apt.jibun }}</th>
+                    <th>{{ apt.dealAmount }}</th>
+                    <th>{{ apt.dealYear }}</th>
                 </tr>
             </tbody>
-            \
+            <!-- <tr>
+                <th>NO</th>
+                <th>TEL</th>
+                <th>ADDRESS</th>
+                <th>NAME</th>
+            </tr>
+            <tr v-for="p in paginatedData" :key="p.no">
+                <td>{{ p.no }}</td>
+                <td>{{ p.tel }}</td>
+                <td>{{ p.address }}</td>
+                <td>{{ p.name }}</td>
+            </tr> -->
         </table>
         <div class="btn-cover">
             <button
@@ -52,21 +57,19 @@
 </template>
 
 <script>
-import DetailApt from '@/components/aptdetail';
-
 export default {
-    name: 'paging-list',
-    components: {
-        DetailApt,
-    },
+    name: 'key-searched',
     data() {
         return {
             pageNum: 0,
-            newlist: [],
         };
     },
     props: {
         listArray: {
+            type: Array,
+            required: true,
+        },
+        totalc: {
             type: Array,
             required: true,
         },
@@ -83,7 +86,6 @@ export default {
         prevPage() {
             this.pageNum -= 1;
         },
-        shomedetail() {},
     },
     computed: {
         pageCount() {
@@ -91,6 +93,11 @@ export default {
                 listSize = this.pageSize,
                 page = Math.floor(listLeng / listSize);
             if (listLeng % listSize > 0) page += 1;
+
+            /*
+        아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
+        이런식으로 if 문 없이 고칠 수도 있다!
+      */
             return page;
         },
         paginatedData() {

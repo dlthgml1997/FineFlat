@@ -40,7 +40,7 @@
                     <br />
 
                     {{ totalcode }}
-                    <paging-list :list-array="aptlist" />
+                    <map-searched :list-array="aptlist" :totalc="totalcode" />
                 </div>
             </div>
         </section>
@@ -49,10 +49,10 @@
 
 <script>
 import axios from '@/util/http-common';
-import PagingList from '@/components/pageing';
+import MapSearched from '@/components/aptsearch/mapsearched';
 export default {
     components: {
-        PagingList,
+        MapSearched,
     },
     data() {
         return {

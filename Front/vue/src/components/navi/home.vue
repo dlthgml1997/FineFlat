@@ -2,16 +2,17 @@
     <div>
         메인 페이지입니다
         <br />
-        로그인 버튼과 환영합니다 <br />
-        가입버튼 <br />
-        최신뉴스
+        <br />
+        ++++++++최신뉴스+++++++++++
         <br />
         <div v-if="loginCheck()">
             <router-link to="/user/login">로그인</router-link>
             <router-link to="/user/join">가입하기</router-link>
+            <!-- 여기에 라우터 뷰를 넣으면?? -->
         </div>
         <div v-else>
-            {{ id }}님 환영합니다. <br />
+            <b>{{ id }}님 환영합니다. <br />
+                </b>
             <button @click="moveMypage()">마이페이지</button>
             <button @click="logoutHandler()">로그아웃</button>
         </div>
@@ -42,7 +43,6 @@ export default {
             sessionStorage.removeItem('user');
             alert('안녕히가세요');
             location.reload();
-            //this.$router.push('/');
         },
         moveMypage() {
             this.$router.push('/user/mypage');

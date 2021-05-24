@@ -3,33 +3,30 @@
         <table>
             <thead>
                 <tr>
-                    <th>citycode</th>
-                    <th>dong</th>
-                    <th>AptName</th>
-                    <th>post number</th>
-                    <th>위도</th>
-                    <th>경도</th>
+                    <th>No.</th>
+                    <th>Sort</th>
+                    <th>Writer</th>
+                    <th>Title</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="apt in paginatedData" :key="apt">
-                    <td>{{ apt.code }}</td>
-                    <td>{{ apt.dong }}</td>
+                <tr v-for="arti in paginatedData" :key="arti">
+                    <td>{{ arti.no }}</td>
+                    <td>{{ arti.sort }}</td>
+                    <td>{{ arti.writer }}</td>
                     <td>
                         <router-link
                             :to="{
-                                name: 'Aptdetail',
-                                params: { AP: apt },
+                                name: 'ArticleDetail',
+                                params: { AT: arti },
                             }"
-                            >{{ apt.aptName }}
+                            >{{ arti.title }}
                         </router-link>
                     </td>
-                    <td>{{ apt.jibun }}</td>
-                    <td>{{ apt.lat }}</td>
-                    <td>{{ apt.lng }}</td>
+                    <td>{{ arti.regtime }}</td>
                 </tr>
             </tbody>
-            \
         </table>
         <div class="btn-cover">
             <button
@@ -54,13 +51,18 @@
 </template>
 
 <script>
-import DetailApt from '@/components/aptdetail';
-
 export default {
-    name: 'paging-list',
-    components: {
-        DetailApt,
-    },
+    // name: 'detail-apt',
+    // computed: {
+    //     paginatedData: function () {
+    //         alert('게시글 변동감지');
+    //         //안쓰이는 거 같은데
+    //         reload();
+    //     },
+    // },
+    // components: {
+    //     DetailApt,
+    // },
     data() {
         return {
             pageNum: 0,

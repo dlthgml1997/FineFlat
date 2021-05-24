@@ -1,21 +1,22 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
-import HomePage from '../components/home.vue';
-import MapSearch from '../components/mapsearch.vue';
-import KeySearch from '../components/keysearch.vue';
-import NoticePage from '@/components/notice.vue';
-import NewsPage from '@/components/news.vue';
-
+//home
+import HomePage from '../components/navi/home.vue';
+//user
 import JoinPage from '@/components/user/join.vue';
 import LoginPage from '@/components/user/login.vue';
 import MyPage from '@/components/user/mypage.vue';
+// //apt
+import AptDetailPage from '@/components/aptsearch/aptdetail.vue';
+import KeySearch from '../components/aptsearch/keysearch.vue';
+import MapSearch from '../components/aptsearch/mapsearch.vue';
+// //noticeboard
+import NoticePage from '@/components/notice/noticemain.vue';
+import ArticleDetailPage from '@/components/notice/articledetail.vue';
+import ArticleModi from '@/components/notice/articlemodi.vue';
+import ArticleWrite from '@/components/notice/articlewrite.vue';
 
-import ArticleDetailPage from '@/components/articledetail.vue';
-import ArticleModi from '@/components/articlemodi.vue';
-
-import AptDetailPage from '@/components/aptdetail.vue';
-import BoardDetial from '@/components/boardDetail.vue';
+import NewsPage from '@/components/news/news.vue';
 //버전 2에서만 가능한 @별칭경로 // 상위경로 웹펙엣
 Vue.use(VueRouter);
 
@@ -23,41 +24,19 @@ Vue.use(VueRouter);
 export default new VueRouter({
     mode: 'history',
     routes: [
+        //=========navi page
         {
+            // 홈페이지
             path: '/',
-            // 요청경로로오면
-            name: 'homena',
+            name: 'home',
             component: HomePage,
-            //컴포넌츠 연결
-        },
-        {
-            path: '/mapsearch',
-            // 요청경로로오면
-            name: 'mapsearch',
-            component: MapSearch,
-            //컴포넌츠 연결
-        },
-        {
-            path: '/keysearch',
-            name: 'keysearch',
-            component: KeySearch,
-        },
-        {
-            path: '/notice',
-            name: 'notice',
-            component: NoticePage,
-        },
-        {
-            path: '/news',
-            name: 'news',
-            component: NewsPage,
         },
         {
             path: '*',
             name: 'notfound',
             component: { template: '<div>not found</div>' },
         },
-        //==========user
+        // ===========user
         {
             path: '/user/join',
             name: 'join',
@@ -70,34 +49,58 @@ export default new VueRouter({
         },
         {
             path: '/user/mypage',
-            name: 'mypg',
+            name: 'mypage',
             component: MyPage,
         },
-
+        //==========apt search
         {
+            //맵겁색 결과의 디테일 페이지
             path: '/apt/aptdetail',
-            name: 'Aptdetail',
+            name: 'AptDetail',
             component: AptDetailPage,
             props: true,
         },
         {
-            path: '/aticledetail',
+            // 맵검색
+            path: '/mapsearch',
+            name: 'mapsearch',
+            component: MapSearch,
+        },
+        {
+            // 아파트 명으로 검색
+            path: '/keysearch',
+            name: 'keysearch',
+            component: KeySearch,
+        },
+        // //==========board
+        {
+            path: '/noticemain',
+            name: 'noticemain',
+            component: NoticePage,
+        },
+        {
+            path: '/notice/articlemodi/aticeaticledetail',
             name: 'ArticleDetail',
             component: ArticleDetailPage,
             props: true,
         },
         {
-            path: '/articlemodi',
+            path: '/notice/articlemodi',
             name: 'articlemodi',
             component: ArticleModi,
             props: true,
         },
-
-        //===========baard
-        // {
-        //     path: '/boardDetail',
-        //     name: 'boardDE',
-        //     component: BoardDetail,
-        // },
+        {
+            path: '/notice/articlewrite',
+            name: 'articlewrite',
+            component: ArticleWrite,
+            props: true,
+        },
+        //===========news
+        {
+            path: '/news',
+            name: 'news',
+            component: NewsPage,
+        },
     ],
 });
