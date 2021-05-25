@@ -1,118 +1,126 @@
 <template>
+  <div>
     <div>
-        <div>
-            <table class="table table-bordered table-condensed">
-                <colgroup>
-                    <col width="30%" />
-                    <col width="70%" />
-                </colgroup>
-                <tr>
-                    <th><label for="id">ID</label></th>
-                    <td>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="id"
-                            ref="id"
-                            placeholder="아이디"
-                            v-model="id"
-                            readonly
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="pw">PASSWORD</label></th>
-                    <td>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="pw"
-                            ref="pw"
-                            placeholder="암호"
-                            v-model="pw"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="pw">PASSWORD AGAIN</label></th>
-                    <td>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="pwre"
-                            ref="pwre"
-                            placeholder="암호를 다시 입력해주세요"
-                            v-model="pwre"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="name">NAME</label></th>
-                    <td>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="name"
-                            ref="name"
-                            placeholder="이름"
-                            v-model="name"
-                            readonly
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="email">E-MAIL</label></th>
-                    <td>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="email"
-                            ref="email"
-                            placeholder="이메일"
-                            v-model="email"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="tel">TEL</label></th>
-                    <td>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="tel"
-                            ref="tel"
-                            placeholder="전화번호"
-                            v-model="tel"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="address">ADDRESS</label></th>
-                    <td>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="address"
-                            ref="address"
-                            placeholder="주소"
-                            v-model="address"
-                        />
-                    </td>
-                </tr>
-            </table>
-            <div class="text-center">
-                <button class="btn btn-primary" @click="checkHandler">
-                    수정하기
-                </button>
-                <button class="btn btn-primary" @click="deleteHandler">
-                    탈퇴하기
-                </button>
-                <button class="btn btn-primary" @click="moveHome">
-                    뒤로가기
-                </button>
-            </div>
-        </div>
+      <table class="table table-bordered table-condensed">
+        <colgroup>
+          <col width="30%" />
+          <col width="70%" />
+        </colgroup>
+        <tr>
+          <th>
+            <label for="id">ID</label>
+          </th>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              ref="id"
+              placeholder="아이디"
+              v-model="id"
+              readonly
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="pw">PASSWORD</label>
+          </th>
+          <td>
+            <input
+              type="password"
+              class="form-control"
+              id="pw"
+              ref="pw"
+              placeholder="암호"
+              v-model="pw"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="pw">PASSWORD AGAIN</label>
+          </th>
+          <td>
+            <input
+              type="password"
+              class="form-control"
+              id="pwre"
+              ref="pwre"
+              placeholder="암호를 다시 입력해주세요"
+              v-model="pwre"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="name">NAME</label>
+          </th>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              ref="name"
+              placeholder="이름"
+              v-model="name"
+              readonly
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="email">E-MAIL</label>
+          </th>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              ref="email"
+              placeholder="이메일"
+              v-model="email"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="tel">TEL</label>
+          </th>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="tel"
+              ref="tel"
+              placeholder="전화번호"
+              v-model="tel"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="address">ADDRESS</label>
+          </th>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              ref="address"
+              placeholder="주소"
+              v-model="address"
+            />
+          </td>
+        </tr>
+      </table>
+      <div class="text-center">
+        <button class="btn btn-primary" @click="checkHandler">수정하기</button>
+        <button class="btn btn-primary" @click="deleteHandler">탈퇴하기</button>
+        <button class="btn btn-primary" @click="moveHome">뒤로가기</button>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -216,7 +224,7 @@ export default {
         },
         deleteAct() {
             //모달창을 추가해보자
-            axios.delete(`/user/delete/${this.id}`).then(({ data }) => {
+            axios.delete(`/user/delete/${this.id}`).then(() => {
                 alert('정상 탈퇴 되었습니다.');
                 sessionStorage.removeItem('user');
                 this.moveHome();

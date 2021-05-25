@@ -1,50 +1,43 @@
 <template>
-    <div class="container">
-        <div>지도검색페이지</div>
-        <div id="map" style="width: 600px; height: 400px; margin: auto"></div>
-        <section id="index_section">
-            <div class="card col-sm-12 mt-1" style="min-height: 850px">
-                <div class="card-body">
-                    시도 :
-                    <select v-model="sidocode">
-                        <option
-                            v-for="sidoOption in sidoOptions"
-                            v-bind:key="sidoOption"
-                            v-bind:value="sidoOption.sido_code"
-                        >
-                            {{ sidoOption.sido_name }}
-                        </option>
-                    </select>
-                    구군 :
-                    <select v-model="guguncode">
-                        <option
-                            v-for="(gOption, index) in gOptions"
-                            :key="index"
-                            :value="gOption.gugun_code"
-                        >
-                            {{ gOption.gugun_name }}
-                        </option>
-                    </select>
-                    읍면동 :
-                    <select v-model="dongcode">
-                        <option
-                            v-for="(dOption, index) in dOptions"
-                            :key="index"
-                            :value="dOption.code"
-                        >
-                            {{ dOption.dong }}
-                        </option>
-                    </select>
-                    <br />
-                    {{ sidocode }}{{ guguncode }}{{ dongcode }}
-                    <br />
-
-                    {{ totalcode }}
-                    <map-searched :list-array="aptlist" :totalc="totalcode" />
-                </div>
-            </div>
-        </section>
-    </div>
+  <div class="container">
+    <div>지도검색페이지</div>
+    <div id="map" style="width: 600px; height: 400px; margin: auto"></div>
+    <section id="index_section">
+      <div class="card col-sm-12 mt-1" style="min-height: 850px">
+        <div class="card-body">
+          시도 :
+          <select v-model="sidocode">
+            <option
+              v-for="sidoOption in sidoOptions"
+              v-bind:key="sidoOption"
+              v-bind:value="sidoOption.sido_code"
+            >{{ sidoOption.sido_name }}</option>
+          </select>
+          구군 :
+          <select v-model="guguncode">
+            <option
+              v-for="(gOption, index) in gOptions"
+              :key="index"
+              :value="gOption.gugun_code"
+            >{{ gOption.gugun_name }}</option>
+          </select>
+          읍면동 :
+          <select v-model="dongcode">
+            <option
+              v-for="(dOption, index) in dOptions"
+              :key="index"
+              :value="dOption.code"
+            >{{ dOption.dong }}</option>
+          </select>
+          <br />
+          {{ sidocode }}{{ guguncode }}{{ dongcode }}
+          <br />
+          {{ totalcode }}
+          <map-searched :list-array="aptlist" :totalc="totalcode" />
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -70,7 +63,6 @@ export default {
     },
     watch: {
         sidocode: function () {
-            //alert('시도코드 변경감지');
             //guHandler();
             axios.get('/house/gugun/' + this.sidocode).then(({ data }) => {
                 console.log(data);
@@ -78,7 +70,6 @@ export default {
             });
         },
         guguncode: function () {
-            //alert('구코드 변경감지');
             //guHandler();
             axios
                 .get('/house/dong/' + this.sidocode + this.guguncode)
@@ -88,19 +79,15 @@ export default {
                 });
         },
         dongcode: function () {
-            // alert('동코드 변경감지');
             //guHandler();
             this.totalcode = this.sidocode + this.guguncode + this.dongcode;
 
             axios.get('/house/dongApt/' + this.totalcode).then(({ data }) => {
                 console.log(data);
-                // alert('아파트리스트가져옴');
                 this.aptlist = data;
             });
         },
         aptlist: function () {
-            alert('aptlist 변경감지');
-
             return this.changeMarker(this.aptlist);
         },
     },
@@ -109,10 +96,9 @@ export default {
             this.initMap();
         } else {
             const script = document.createElement('script');
-            /* global kakao */
             script.onload = () => kakao.maps.load(this.initMap);
             script.src =
-                'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=e5ad64ac6c3f3c7a7faca80c22f49b4b';
+                'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=e5ad64ac6c3f3c7a7faca80c22f49b4b&libraries=services';
             document.head.appendChild(script);
         }
 
@@ -134,7 +120,6 @@ export default {
             var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
         },
         changeMarker(list) {
-            // alert(list.length);
 
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
@@ -155,7 +140,6 @@ export default {
                     imageSize
                 );
                 var lat = list[i].lat;
-                //alert(lat);
                 var lng = list[i].lng;
                 var posi = new kakao.maps.LatLng(lat, lng);
                 if (i == 0) {
