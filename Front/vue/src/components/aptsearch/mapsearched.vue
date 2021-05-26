@@ -13,7 +13,9 @@
       <tbody>
         <tr v-for="apt in paginatedData" :key="apt">
           <td>
-            <button @click="updateClickCnt(apt.no, apt)">{{ apt.aptName }}</button>
+            <div class="teamSelector" @click="updateClickCnt(apt.no, apt)">
+              <b>{{ apt.aptName }}</b>
+            </div>
           </td>
           <td>{{ apt.dealAmount }}</td>
           <td>{{ apt.dealYear }}</td>
@@ -117,5 +119,9 @@ table tr td {
 }
 .btn-cover .page-count {
   padding: 0 1rem;
+}
+
+.teamSelector {
+  cursor: pointer;
 }
 </style>
