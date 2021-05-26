@@ -1,7 +1,6 @@
 <template>
   <div>
     <div id="map" style="width: 600px; height: 400px; margin: auto"></div>
-    아파트 디테일입니다.
     {{ $route.params.AP }}
     <br />
     <v-radar :stats="stats" :polycolor="polycolor" :radar="radar" :scale="scale"> </v-radar>
@@ -28,12 +27,12 @@ export default {
         structure: {
           external: {
             // external stroke of the structure's polygon
-            strokeColor: 'rgba(0, 0, 0, 0.6)', // color (any css format is usable (hexa, rgb, rgba...))
-            strokeWidth: '2', // pixel unit
+            strokeColor: 'rgba(0, 0, 0, 0.6)',
+            strokeWidth: '2',
           },
           internals: {
             // internals stroke of the structure's polygon (one every 10%)
-            strokeColor: 'rgba(255, 255, 255, .2)', // color (any css format is usable (hexa, rgb, rgba...))
+            strokeColor: 'rgba(255, 255, 255, 0)', // (안보이게 처리)
             strokeWidth: '1', // pixel unit
           },
           average: {
