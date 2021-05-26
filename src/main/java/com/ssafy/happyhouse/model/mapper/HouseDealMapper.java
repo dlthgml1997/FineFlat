@@ -7,10 +7,24 @@ import com.ssafy.happyhouse.model.HouseDealDto;
 import com.ssafy.happyhouse.model.HouseDto;
 
 public interface HouseDealMapper {
+	// 시, 도 검색
 	List<HouseDealDto> getSido();
+
+	// 시, 도 코드를 통해 구, 군 검색
 	List<HouseDealDto> getGugunInSido(String sido);
-	List<HouseDealDto> getDongInGugun(String sigugun);
-	List<HouseDealDto> searchByAptName(String AptName) throws SQLException;
+
+	// 구, 군 코드를 이용해 동 검색
+	List<HouseDealDto> getDongInGugun(String gugun);
+
+	// 지도 - 동으로 검색
 	List<HouseDto> searchByDong(String totalcode) throws SQLException;
+
+	// 아파트명으로 검색
 	List<HouseDto> searchByName(String searchName) throws SQLException;
+
+	// 클릭 횟수 증가
+	int clickCntModify(int no);
+
+	// 조회수 상위 5개 반환
+	List<HouseDto> getMostClicked();
 }

@@ -46,4 +46,18 @@
 		WHERE i.AptName LIKE concat('%', #{searchName}, '%')
 		ORDER BY AptName
 	</select>
+	
+	<update id="clickCntModify">
+		UPDATE housedeal
+		SET clickCnt = clickCnt + 1
+		WHERE no = #{no}
+	</update>
+	
+	<select id="getMostClicked" resultType="houseDto">
+		SELECT DISTINCT i.*, d.*
+		FROM houseinfo i INNER JOIN housedeal d
+		ON i.no = d.houseinfoNo
+		ORDER BY d.clickCnt DESC
+		LIMIT 5
+	</select>
 </mapper>

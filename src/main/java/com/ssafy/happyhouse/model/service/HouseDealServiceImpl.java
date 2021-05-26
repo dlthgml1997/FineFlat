@@ -46,4 +46,14 @@ public class HouseDealServiceImpl implements HouseDealService {
 	public List<HouseDealDto> getDongInGugun(String sigugun) {
 		return sqlSession.getMapper(HouseDealMapper.class).getDongInGugun(sigugun);
 	}
+
+	@Override
+	public int clickCntModify(int no) {
+		return sqlSession.getMapper(HouseDealMapper.class).clickCntModify(no);
+	}
+
+	@Override
+	public List<HouseDto> getMostClicked() {
+		return sqlSession.getMapper(HouseDealMapper.class).getMostClicked();
+	}
 }

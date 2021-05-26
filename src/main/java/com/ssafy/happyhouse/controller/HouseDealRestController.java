@@ -16,6 +16,7 @@ import com.ssafy.happyhouse.model.service.HouseDealService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -113,6 +114,32 @@ public class HouseDealRestController {
 		try {
 			List<HouseDto> list = houseDealService.searchByName(searchName);
 
+			return new ResponseEntity<>(list, HttpStatus.OK);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@ApiOperation(value = "아파트 상세 조회 클릭 횟수 1씩 증가시키기", notes ="아파트 no로 클릭 횟수를 증가시킵니다.")
+	@PutMapping(value = "/click/{no}")
+	public ResponseEntity clickUpdate(@PathVariable @ApiParam(value="클릭 된 아파트의 no", required = true) Integer no) {
+		logger.info("clickUpdate no: "+no);
+		int result = houseDealService.clickCntModify(no);
+		logger.info("clickUpdate result: "+result);
+		if(result > 0) {
+			return new ResponseEntity(HttpStatus.OK);
+		} else {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@ApiOperation(value = "아파트 조회 클릭 수 상위 5개 얻기", notes="아파트 조회 클릭 수 상위 5개의 정보를 반환합니다.")
+	@GetMapping(value ="/mostclicked")
+	public ResponseEntity<List<HouseDto>> getMostClicked() {
+		try {
+			List<HouseDto> list = houseDealService.getMostClicked();
+			logger.info("getMostClicked list: "+ list.toString());
 			return new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
