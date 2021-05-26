@@ -5,14 +5,14 @@
 <mapper
 	namespace="com.ssafy.happyhouse.model.mapper.HouseDealMapper">
 
-	<select id="getSido" resultType="houseDealDto">
+	<select id="getSido" resultType="BaseAddressDto">
 		SELECT DISTINCT left(code,2)
 		sido_code, city sido_name
 		FROM baseaddress
 		ORDER BY sido_code
 	</select>
 
-	<select id="getGugunInSido" resultType="houseDealDto">
+	<select id="getGugunInSido" resultType="BaseAddressDto">
 		SELECT DISTINCT
 		SUBSTRING(code,3,3) gugun_code, gugun gugun_name
 		FROM baseaddress
@@ -20,7 +20,7 @@
 		ORDER BY gugun_code
 	</select>
 
-	<select id="getDongInGugun" resultType="houseDealDto">
+	<select id="getDongInGugun" resultType="BaseAddressDto">
 		SELECT DISTINCT
 		RIGHT(code,5) code, dong
 		FROM baseaddress

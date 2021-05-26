@@ -1,6 +1,6 @@
 package com.ssafy.happyhouse.model;
 
-public class HouseDealDto {
+public class BaseAddressDto {
 
 	private String sido_code;
 	private String sido_name;
@@ -8,7 +8,6 @@ public class HouseDealDto {
 	private String gugun_name;
 	private String dong;
 	private String code;
-	private String housename;
 
 	public String getSido_code() {
 		return sido_code;
@@ -58,18 +57,10 @@ public class HouseDealDto {
 		this.code = code;
 	}
 
-	public String getHousename() {
-		return housename;
-	}
-
-	public void setHousename(String housename) {
-		this.housename = housename;
-	}
-
 	@Override
 	public String toString() {
-		return "HouseDealDto [sido_code=" + sido_code + ", sido_name=" + sido_name + ", gugun_code=" + gugun_code
-				+ ", gugun_name=" + gugun_name + ", dong=" + dong + ", code=" + code + ", housename=" + housename + "]";
+		return "BaseAddressDto [sido_code=" + sido_code + ", sido_name=" + sido_name + ", gugun_code=" + gugun_code
+				+ ", gugun_name=" + gugun_name + ", dong=" + dong + ", code=" + code + "]";
 	}
 
 }

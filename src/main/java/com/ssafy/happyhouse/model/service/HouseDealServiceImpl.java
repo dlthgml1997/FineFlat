@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.happyhouse.model.HouseDealDto;
+import com.ssafy.happyhouse.model.BaseAddressDto;
 import com.ssafy.happyhouse.model.HouseDto;
 import com.ssafy.happyhouse.model.mapper.HouseDealMapper;
 import com.ssafy.util.PageNavigation;
@@ -33,17 +33,17 @@ public class HouseDealServiceImpl implements HouseDealService {
 	}
 
 	@Override
-	public List<HouseDealDto> getSido() {
+	public List<BaseAddressDto> getSido() {
 		return sqlSession.getMapper(HouseDealMapper.class).getSido();
 	}
 
 	@Override
-	public List<HouseDealDto> getGugunInSido(String sido) {
+	public List<BaseAddressDto> getGugunInSido(String sido) {
 		return sqlSession.getMapper(HouseDealMapper.class).getGugunInSido(sido);
 	}
 
 	@Override
-	public List<HouseDealDto> getDongInGugun(String sigugun) {
+	public List<BaseAddressDto> getDongInGugun(String sigugun) {
 		return sqlSession.getMapper(HouseDealMapper.class).getDongInGugun(sigugun);
 	}
 

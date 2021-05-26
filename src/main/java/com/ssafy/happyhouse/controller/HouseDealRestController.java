@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.happyhouse.model.HouseDealDto;
+import com.ssafy.happyhouse.model.BaseAddressDto;
 import com.ssafy.happyhouse.model.HouseDto;
 import com.ssafy.happyhouse.model.service.HouseDealService;
 
@@ -41,10 +41,10 @@ public class HouseDealRestController {
 
 	@ApiOperation(value = "도시명 얻기", notes = "DB에 있는 도시코드와 도시명을 반환합니다.")
 	@GetMapping("/sido")
-	private ResponseEntity<List<HouseDealDto>> getSido() {
+	private ResponseEntity<List<BaseAddressDto>> getSido() {
 		logger.info("getSido");
 		try {
-			List<HouseDealDto> list = houseDealService.getSido();
+			List<BaseAddressDto> list = houseDealService.getSido();
 			if (list.size() > 0) {
 				return new ResponseEntity<>(list, HttpStatus.OK);
 			} else {
@@ -58,12 +58,12 @@ public class HouseDealRestController {
 
 	@ApiOperation(value = "구군명 얻기", notes = "해당도시의 구군명을 반환합니다.")
 	@GetMapping("/gugun/{sido}")
-	public ResponseEntity<List<HouseDealDto>> getGugunInSido(@PathVariable("sido") String sido) {
+	public ResponseEntity<List<BaseAddressDto>> getGugunInSido(@PathVariable("sido") String sido) {
 		logger.info("getGugunInSido");
 		logger.info(sido);
 
 		try {
-			List<HouseDealDto> list = houseDealService.getGugunInSido(sido);
+			List<BaseAddressDto> list = houseDealService.getGugunInSido(sido);
 			if (list.size() > 0) {
 				return new ResponseEntity<>(list, HttpStatus.OK);
 			} else {
@@ -77,11 +77,11 @@ public class HouseDealRestController {
 
 	@ApiOperation(value = "동명 얻기", notes = "해당 구군의 동명을 반환합니다.")
 	@GetMapping("/dong/{sigugun}")
-	public ResponseEntity<List<HouseDealDto>> getDongInGugun(@PathVariable("sigugun") String sigugun) {
+	public ResponseEntity<List<BaseAddressDto>> getDongInGugun(@PathVariable("sigugun") String sigugun) {
 		logger.info("getDongInGugun");
 		logger.info(sigugun);
 		try {
-			List<HouseDealDto> list = houseDealService.getDongInGugun(sigugun);
+			List<BaseAddressDto> list = houseDealService.getDongInGugun(sigugun);
 			if (list.size() > 0) {
 				logger.info("getDongInGugun  sss");
 				return new ResponseEntity<>(list, HttpStatus.OK);
