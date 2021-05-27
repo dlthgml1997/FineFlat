@@ -5,39 +5,59 @@
 <mapper
 	namespace="com.ssafy.happyhouse.model.mapper.HouseDealMapper">
 
-	<select id="getSido" resultType="houseDealDto">
-		SELECT DISTINCT left(code,2) sido_code, city sido_name
+	<select id="getSido" resultType="BaseAddressDto">
+		SELECT DISTINCT left(code,2)
+		sido_code, city sido_name
 		FROM baseaddress
 		ORDER BY sido_code
 	</select>
-	
-	<select id="getGugunInSido" resultType="houseDealDto">
-		SELECT DISTINCT SUBSTRING(code,3,3) gugun_code, gugun gugun_name 
-		FROM baseaddress 
+
+	<select id="getGugunInSido" resultType="BaseAddressDto">
+		SELECT DISTINCT
+		SUBSTRING(code,3,3) gugun_code, gugun gugun_name
+		FROM baseaddress
 		WHERE LEFT(code,2) = #{sido}
 		ORDER BY gugun_code
 	</select>
 
-	<select id="getDongInGugun" resultType="houseDealDto">
-		SELECT DISTINCT RIGHT(code,5) code, dong 
-		FROM baseaddress 
+	<select id="getDongInGugun" resultType="BaseAddressDto">
+		SELECT DISTINCT
+		RIGHT(code,5) code, dong
+		FROM baseaddress
 		WHERE siguguncode = #{sigugun}
 		ORDER BY dong
 	</select>
-	
+
 	<select id="searchByDong" resultType="houseDto">
-		SELECT code,dong,AptName,jibun, lat,lng
-		FROM houseinfo
-		WHERE dong LIKE (SELECT dong 
-						FROM baseaddress 
-						WHERE code = #{totalcode})
+		SELECT i.*, d.*
+		FROM houseinfo i, housedeal d
+		WHERE i.dong 
+        LIKE (SELECT dong
+		FROM baseaddress
+		WHERE code = #{totalcode})
+        AND i.no = d.houseinfoNo
+		ORDER BY i.AptName
+	</select>
+
+	<select id="searchByName" resultType="houseDto">
+		SELECT DISTINCT i.*, d.*
+		FROM houseinfo i INNER JOIN housedeal d
+		ON i.no = d.houseinfoNo
+		WHERE i.AptName LIKE concat('%', #{searchName}, '%')
 		ORDER BY AptName
 	</select>
 	
-	<select id="searchByName" resultType="houseDto">
-		SELECT dong, AptName, buildYear, jibun, dealAmount, dealYear
-		FROM housedeal 
-		WHERE AptName like concat('%', #{searchName}, '%')
-		ORDER BY AptName
+	<update id="clickCntModify">
+		UPDATE housedeal
+		SET clickCnt = clickCnt + 1
+		WHERE no = #{no}
+	</update>
+	
+	<select id="getMostClicked" resultType="houseDto">
+		SELECT DISTINCT i.*, d.*
+		FROM houseinfo i INNER JOIN housedeal d
+		ON i.no = d.houseinfoNo
+		ORDER BY d.clickCnt DESC
+		LIMIT 5
 	</select>
 </mapper>

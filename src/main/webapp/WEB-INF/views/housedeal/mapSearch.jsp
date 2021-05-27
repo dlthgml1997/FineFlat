@@ -48,7 +48,7 @@ $(document).ready(function(){
 	$("#gugun").change(function() {
 	let firstcode="";
 		if(this.value !== ""){
-            var optVal = $(this).find(":selected").val();
+            var optVal =$("#sido").find(":selected").val() + $(this).find(":selected").val();
             firstcode+=optVal;
         }
 		$.ajax({
